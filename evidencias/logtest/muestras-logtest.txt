@@ -1,0 +1,36 @@
+# Lineas de ejemplo usadas en wazuh-logtest (Pasos 1.7 y 1.8)
+# Para la evidencia se corren SIN -v (que imprime el trace de ~200 reglas):
+#   echo 'LINEA' | sudo /var/ossec/bin/wazuh-logtest 2>&1 | tee salida.txt
+# El -v se usa solo para depurar cuando una regla no dispara.
+# Las de Apache y PostgreSQL hay que sustituirlas por las lineas REALES que
+# mande Sebas (pendientes S.2 y S.3) antes de dar los decoders por buenos.
+
+## === APACHE ===
+
+# A1. URL codificada (lo normal: el navegador y sqlmap codifican los espacios).
+#     Decoder esperado: web-accesslog (de fabrica) -> regla 100008, nivel 10, T1190
+192.168.100.99 - - [21/Oct/2026:14:07:40 -0600] "GET /producto.php?id=1%20UNION%20SELECT%20username,password%20FROM%20users HTTP/1.1" 200 1620 "-" "sqlmap/1.8#stable (https://sqlmap.org)"
+
+# A2. URL con espacios sin codificar: el prematch del decoder de fabrica
+#     ("\w+ \S+ HTTP\S+") no la admite.
+#     Decoder esperado: apache-accesslog-local (propio) -> regla 100013, nivel 10, T1190
+192.168.100.99 - - [21/Oct/2026:14:05:22 -0600] "GET /producto.php?id=1' OR '1'='1 HTTP/1.1" 200 1534 "-" "Mozilla/5.0"
+
+## === POSTGRESQL (log_line_prefix por defecto de Debian: '%m [%p] %q%u@%d ') ===
+
+# P1. Autenticacion fallida.
+#     Decoder esperado: postgresql-local-auth (propio) -> regla 100010, nivel 6
+#     Pegada 6 veces en 60 s -> regla 100011, nivel 10, T1110.001
+2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"
+
+# P2. Consulta malformada (rastro de sqlmap del lado de la base de datos).
+#     Decoder esperado: postgresql-local-error (propio) -> regla 100012, nivel 7, T1190
+2026-10-21 14:06:02.901 UTC [12346] appuser@proyectodb ERROR:  syntax error at or near "OR" at character 31
+
+## === YA CONFIRMADAS (sirven de control de que logtest funciona) ===
+
+# SSH fallo de autenticacion -> regla 100001, nivel 10, T1110.001 (SID base 5760)
+Oct 21 14:10:05 agent-db sshd[2043]: Failed password for root from 192.168.100.99 port 52134 ssh2
+
+# sudo por usuario no privilegiado -> regla 100003, nivel 10, T1548.003 (SID base 5405)
+Oct 21 14:12:33 agent-linux sudo: prueba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/prueba ; USER=root ; COMMAND=/bin/ls
