@@ -238,3 +238,26 @@
     <group>web,attack,sqlinjection,</group>
   </rule>
 </group>
+
+<!-- ===== 11) Archivo nuevo o modificado en directorio de riesgo - nivel 5 =====
+     Regla de enganche para la integracion con VirusTotal (Paso 1.10).
+     No pretende detectar nada por si sola: existe para acotar que alertas de
+     FIM se mandan a analizar.
+     Motivo: la API gratuita de VirusTotal permite 4 consultas por minuto. Con
+     <group>syscheck</group> la integracion se disparaba con cada cambio en
+     /etc -que en un sistema en marcha son rafagas de alertas 550- y VirusTotal
+     devolvia 429; el script lo interpreta como "sin respuesta" y termina con
+     ERR_NO_RESPONSE_VT (codigo 4). Confirmado en los logs de wazuh-integratord.
+     Ambitos elegidos:
+       /opt/vt-test : directorio de pruebas del manager.
+       /var/www     : raiz del sitio de agent-linux, donde caeria una webshell
+                      tras la inyeccion SQL del ataque #2 de la Fase 5.
+     Ninguno de los dos cambia por si solo, asi que la cuota alcanza. -->
+<group name="local,syscheck,">
+  <rule id="100014" level="5">
+    <if_sid>550,554</if_sid>
+    <field name="file">^/opt/vt-test/|^/var/www/</field>
+    <description>Archivo nuevo o modificado en directorio de riesgo: $(file)</description>
+    <group>syscheck,virustotal,</group>
+  </rule>
+</group>
