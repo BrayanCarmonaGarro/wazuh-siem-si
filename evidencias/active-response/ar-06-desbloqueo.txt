@@ -1,0 +1,9 @@
+=== FIREWALL DESPUES DEL TIMEOUT DE 600 s ===
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+=== CICLO COMPLETO REGISTRADO POR WAZUH ===
+2026/10/21 17:51:52   comando: add   IP: 203.0.113.50
+2026/10/21 18:01:53   comando: delete   IP: 203.0.113.50
+2026/10/21 18:07:52   comando: add   IP: 203.0.113.50
+2026/10/21 18:17:53   comando: delete   IP: 203.0.113.50

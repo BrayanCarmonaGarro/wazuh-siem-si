@@ -1,0 +1,24 @@
+tty: pts/0
+pwd: /home/brayan
+command: /usr/bin/grep -a -B2 -A20 '"id": "100001"\\|Rule: 100001' /var/ossec/logs/alerts/alerts.log
+
+** Alert 1792605546.189746: - syslog,sudo,pci_dss_10.2.5,pci_dss_10.2.2,gpg13_7.6,gpg13_7.8,gpg13_7.13,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_AC.6,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,
+2026 Oct 21 17:59:06 wazuh-server->journald
+Rule: 5402 (level 3) -> 'Successful sudo to ROOT executed.'
+User: root
+Oct 21 17:59:04 wazuh-server sudo[14293]:   brayan : TTY=pts/0 ; PWD=/home/brayan ; USER=root ; COMMAND=/usr/bin/grep -a -i 'active response' /var/ossec/logs/ossec.log
+tty: pts/0
+pwd: /home/brayan
+--
+
+** Alert 1792606072.202849: - local,syslog,sshd,authentication_failures,brute_force,
+2026 Oct 21 18:07:52 wazuh-server->journald
+Rule: 100001 (level 10) -> 'Fuerza bruta SSH: mas de 5 fallos en 60 s desde la misma IP (203.0.113.50).'
+Src IP: 203.0.113.50
+Src Port: 50000
+User: root
+Oct 21 18:07:51 wazuh-server sshd[4242]: Failed password for root from 203.0.113.50 port 50000 ssh2
+Oct 21 18:07:49 wazuh-server sshd[4242]: Failed password for root from 203.0.113.50 port 50000 ssh2
+Oct 21 18:07:47 wazuh-server sshd[4242]: Failed password for root from 203.0.113.50 port 50000 ssh2
+Oct 21 18:07:45 wazuh-server sshd[4242]: Failed password for root from 203.0.113.50 port 50000 ssh2
+Oct 21 18:07:43 wazuh-server sshd[4242]: Failed password for root from 203.0.113.50 port 50000 ssh2
