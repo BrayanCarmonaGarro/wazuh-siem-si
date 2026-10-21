@@ -1,0 +1,27 @@
+Starting wazuh-logtest v4.9.2
+Type one log per line
+
+192.168.100.99 - - [21/Oct/2026:14:05:22 -0600] "GET /producto.php?id=1' OR '1'='1 HTTP/1.1" 200 1534 "-" "Mozilla/5.0"
+
+**Phase 1: Completed pre-decoding.
+        full event: '192.168.100.99 - - [21/Oct/2026:14:05:22 -0600] "GET /producto.php?id=1' OR '1'='1 HTTP/1.1" 200 1534 "-" "Mozilla/5.0"'
+
+**Phase 2: Completed decoding.
+        name: 'apache-accesslog-local'
+        http_user_agent: 'Mozilla/5.0'
+        id: '200'
+        protocol: 'GET'
+        srcip: '192.168.100.99'
+        url: '/producto.php?id=1' OR '1'='1'
+
+**Phase 3: Completed filtering (rules).
+        id: '100013'
+        level: '10'
+        description: 'Inyeccion SQL sin codificar en Apache desde 192.168.100.99: /producto.php?id=1' OR '1'='1'
+        groups: '['local', 'web', 'attack', 'sqlinjection']'
+        firedtimes: '1'
+        mail: 'False'
+        mitre.id: '['T1190']'
+        mitre.tactic: '['Initial Access']'
+        mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
