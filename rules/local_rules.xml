@@ -1,0 +1,91 @@
+<!-- Local rules -->
+
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<!-- =====================================================================
+     Reglas personalizadas - Proyecto Final SI 2026 (wazuh-server)
+     IDs desde 100001.
+     ===================================================================== -->
+
+<!-- ===== 1) Fuerza bruta SSH (T1110.001) - nivel 10 =====
+     Base: 5760 (fallo de autenticacion SSH), confirmado con wazuh-logtest.
+     same_source_ip agrupa por IP origen; frequency=6 + timeframe=60 => mas de
+     5 fallos en 60 s (umbral de F1). Dispara el Active Response del Paso 1.9. -->
+<group name="local,syslog,sshd,">
+  <rule id="100001" level="10" frequency="6" timeframe="60">
+    <if_matched_sid>5760</if_matched_sid>
+    <same_source_ip />
+    <description>Fuerza bruta SSH: mas de 5 fallos en 60 s desde la misma IP ($(srcip)).</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+    <group>authentication_failures,brute_force,</group>
+  </rule>
+</group>
+
+<!-- ===== 2) Modificacion de /etc/passwd o /etc/sudoers via FIM (T1548.003) - nivel 12 =====
+     Base: 550 (archivo modificado) y 554 (archivo nuevo). Filtra por ruta con
+     el campo file. No se prueba con logtest: se valida en vivo (Paso 1.7). -->
+<group name="local,syscheck,">
+  <rule id="100002" level="12">
+    <if_sid>550,554</if_sid>
+    <field name="file">^/etc/passwd$|^/etc/sudoers$</field>
+    <description>Modificacion no autorizada de $(file) detectada por FIM.</description>
+    <mitre>
+      <id>T1548.003</id>
+    </mitre>
+    <group>syscheck,</group>
+  </rule>
+</group>
+
+<!-- ===== 3) sudo por usuario no privilegiado (T1548.003) - nivel 10 =====
+     Base: 5405 (user NOT in sudoers), confirmado con wazuh-logtest. -->
+<group name="local,syslog,sudo,">
+  <rule id="100003" level="10">
+    <if_sid>5405</if_sid>
+    <description>Uso de sudo por usuario no autorizado (no esta en sudoers).</description>
+    <mitre>
+      <id>T1548.003</id>
+    </mitre>
+    <group>privilege_escalation,</group>
+  </rule>
+</group>
+
+
+<!-- ===== 4) Conexion al puerto 4444 / reverse shell (T1041 + T1571) - nivel 12 =====
+     PENDIENTE: sustituir ____ por el SID base del log del firewall de Sebas.
+     Filtra por puerto ORIGEN 4444 para que srcip sea Kali (ver pendientes). -->
+<!--
+<group name="local,firewall,">
+  <rule id="100004" level="12">
+    <if_sid>____</if_sid>
+    <field name="srcport">^4444$</field>
+    <description>Posible reverse shell: conexion con puerto 4444 desde $(srcip).</description>
+    <mitre>
+      <id>T1041</id>
+      <id>T1571</id>
+    </mitre>
+    <group>recon,</group>
+  </rule>
+</group>
+-->
+<!-- ===== 5) Creacion de cuenta en Windows fuera de horario (T1136.001) - nivel 10 =====
+     PENDIENTE: sustituir ____ por el SID base del Event ID 4720 (ver pendientes).
+     Si no aparece un SID limpio, cambiar la linea if_sid por:
+         <if_group>windows</if_group>
+     <time> restringe la deteccion a fuera de jornada (6pm-8am). -->
+<!--
+<group name="local,windows,">
+  <rule id="100005" level="10">
+    <if_sid>____</if_sid>
+    <field name="win.system.eventID">^4720$</field>
+    <time>6:00 pm - 8:00 am</time>
+    <description>Creacion de cuenta en Windows fuera de horario laboral.</description>
+    <mitre>
+      <id>T1136.001</id>
+    </mitre>
+    <group>account_changes,</group>
+  </rule>
+</group>
+-->
