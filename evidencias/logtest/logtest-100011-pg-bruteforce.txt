@@ -1,0 +1,154 @@
+Starting wazuh-logtest v4.9.2
+Type one log per line
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"'
+
+**Phase 2: Completed decoding.
+	name: 'postgresql-local'
+	parent: 'postgresql-local'
+	dstuser: 'appuser'
+	pg_db: 'proyectodb'
+	pg_pid: '12345'
+	pg_user: 'appuser'
+	status: 'FATAL'
+
+**Phase 3: Completed filtering (rules).
+	id: '100010'
+	level: '6'
+	description: 'PostgreSQL: fallo de autenticacion del usuario appuser en la base proyectodb.'
+	groups: '['local', 'postgresql', 'authentication_failed']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1110.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Password Guessing']'
+**Alert to be generated.
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"'
+
+**Phase 2: Completed decoding.
+	name: 'postgresql-local'
+	parent: 'postgresql-local'
+	dstuser: 'appuser'
+	pg_db: 'proyectodb'
+	pg_pid: '12345'
+	pg_user: 'appuser'
+	status: 'FATAL'
+
+**Phase 3: Completed filtering (rules).
+	id: '100010'
+	level: '6'
+	description: 'PostgreSQL: fallo de autenticacion del usuario appuser en la base proyectodb.'
+	groups: '['local', 'postgresql', 'authentication_failed']'
+	firedtimes: '2'
+	mail: 'False'
+	mitre.id: '['T1110.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Password Guessing']'
+**Alert to be generated.
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"'
+
+**Phase 2: Completed decoding.
+	name: 'postgresql-local'
+	parent: 'postgresql-local'
+	dstuser: 'appuser'
+	pg_db: 'proyectodb'
+	pg_pid: '12345'
+	pg_user: 'appuser'
+	status: 'FATAL'
+
+**Phase 3: Completed filtering (rules).
+	id: '100010'
+	level: '6'
+	description: 'PostgreSQL: fallo de autenticacion del usuario appuser en la base proyectodb.'
+	groups: '['local', 'postgresql', 'authentication_failed']'
+	firedtimes: '3'
+	mail: 'False'
+	mitre.id: '['T1110.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Password Guessing']'
+**Alert to be generated.
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"'
+
+**Phase 2: Completed decoding.
+	name: 'postgresql-local'
+	parent: 'postgresql-local'
+	dstuser: 'appuser'
+	pg_db: 'proyectodb'
+	pg_pid: '12345'
+	pg_user: 'appuser'
+	status: 'FATAL'
+
+**Phase 3: Completed filtering (rules).
+	id: '100010'
+	level: '6'
+	description: 'PostgreSQL: fallo de autenticacion del usuario appuser en la base proyectodb.'
+	groups: '['local', 'postgresql', 'authentication_failed']'
+	firedtimes: '4'
+	mail: 'False'
+	mitre.id: '['T1110.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Password Guessing']'
+**Alert to be generated.
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"'
+
+**Phase 2: Completed decoding.
+	name: 'postgresql-local'
+	parent: 'postgresql-local'
+	dstuser: 'appuser'
+	pg_db: 'proyectodb'
+	pg_pid: '12345'
+	pg_user: 'appuser'
+	status: 'FATAL'
+
+**Phase 3: Completed filtering (rules).
+	id: '100010'
+	level: '6'
+	description: 'PostgreSQL: fallo de autenticacion del usuario appuser en la base proyectodb.'
+	groups: '['local', 'postgresql', 'authentication_failed']'
+	firedtimes: '5'
+	mail: 'False'
+	mitre.id: '['T1110.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Password Guessing']'
+**Alert to be generated.
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '2026-10-21 14:03:11.123 UTC [12345] appuser@proyectodb FATAL:  password authentication failed for user "appuser"'
+
+**Phase 2: Completed decoding.
+	name: 'postgresql-local'
+	parent: 'postgresql-local'
+	dstuser: 'appuser'
+	pg_db: 'proyectodb'
+	pg_pid: '12345'
+	pg_user: 'appuser'
+	status: 'FATAL'
+
+**Phase 3: Completed filtering (rules).
+	id: '100011'
+	level: '10'
+	description: 'Fuerza bruta contra PostgreSQL: mas de 5 fallos de autenticacion en 60 s.'
+	groups: '['local', 'postgresql', 'authentication_failures', 'brute_force']'
+	firedtimes: '1'
+	frequency: '6'
+	mail: 'False'
+	mitre.id: '['T1110.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Password Guessing']'
+**Alert to be generated.
+
