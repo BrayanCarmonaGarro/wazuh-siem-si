@@ -3,47 +3,12 @@
      Paso 1.8 / Fase 3 paso 12.
      En el manager: /var/ossec/etc/decoders/local_decoder.xml
      =====================================================================
-
-     DOS COSAS QUE HAY QUE SABER DEL MOTOR (comprobadas con wazuh-logtest -v)
-
-     1) ORDEN DE CARGA. El manager carga primero /var/ossec/ruleset/decoders/
-        (los de fabrica) y despues /var/ossec/etc/decoders/ (estos). Cuando un
-        decoder padre hace match, Wazuh recorre sus hijos y se queda con el
-        PRIMERO que coincida: los hijos de fabrica siempre se evaluan antes que
-        los nuestros. Por eso un decoder propio solo aporta algo cuando el de
-        fabrica NO hace match.
-
-     2) TODO HIJO NECESITA <prematch>. Si un hijo no lo tiene, Wazuh lo
-        selecciona igual, le corre el <regex> y, si falla, NO sigue probando
-        los hijos siguientes: el evento queda con el nombre del decoder padre
-        y sin ningun campo. Por eso cada hijo de abajo lleva su prematch, del
-        mas especifico al mas generico.
      ===================================================================== -->
 
 
 <!-- =====================================================================
      1) APACHE - access.log
      =====================================================================
-     De fabrica: 0375-web-accesslog_decoders.xml, padre 'web-accesslog' con
-     los hijos web-accesslog-domain / -ip-ip / -ip / -glpi, que extraen
-     srcip, protocol (metodo), url e id (codigo de estado).
-
-     HUECO DETECTADO: el prematch del padre de fabrica es
-         ^\S+ \S+ \S+ \.*[\S+ \S\d+] "\w+ \S+ HTTP\S+"
-     El \S+ de la URL no admite espacios. Una peticion con un payload de
-     inyeccion sin codificar, por ejemplo
-
-     192.168.100.99 - - [21/Oct/2026:14:05:22 -0600] "GET /producto.php?id=1' OR '1'='1 HTTP/1.1" 200 1534 "-" "Mozilla/5.0"
-
-     no la decodifica NINGUN decoder de fabrica: el ataque pasa sin alerta.
-     Este decoder cubre justo ese caso. Como el padre de fabrica ni siquiera
-     hace prematch con esas lineas, este si llega a evaluarse. Para las
-     peticiones normales (URL codificada con %20) gana el de fabrica, que es
-     lo que queremos: la regla 100008 sigue funcionando igual.
-
-     Replica los nombres de campo del de fabrica (srcip, protocol, url, id)
-     para que el dashboard muestre lo mismo, y agrega http_user_agent, que el
-     de fabrica descarta y sirve para detectar sqlmap.
      ===================================================================== -->
 <decoder name="apache-accesslog-local">
   <prematch type="pcre2">^\S+ \S+ \S+ \[\d{2}/\w{3}/\d{4}:\d{2}:\d{2}:\d{2} [^\]]*\] "</prematch>
