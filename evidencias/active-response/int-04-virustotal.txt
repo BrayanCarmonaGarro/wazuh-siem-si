@@ -1,0 +1,30 @@
+2026 Oct 21 21:01:34 wazuh-server->virustotal
+Rule: 87105 (level 12) -> 'VirusTotal: Alert - /opt/vt-test/eicar.com - 66 engines detected this file'
+{"virustotal": {"found": 1, "malicious": 1, "source": {"alert_id": "1792616492.3262318", "file": "/opt/vt-test/eicar.com", "md5": "44d88612fea8a8f36de82e1278abb02f", "sha1": "3395856ce81f2b7382dee72602f798b642f14140"}, "sha1": "3395856ce81f2b7382dee72602f798b642f14140", "scan_date": "2026-10-21 20:58:02", "positives": 66, "total": 68, "permalink": "https://www.virustotal.com/gui/file/275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f/detection/f-275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f-1792616282"}, "integration": "virustotal"}
+virustotal.found: 1
+virustotal.malicious: 1
+virustotal.source.alert_id: 1792616492.3262318
+virustotal.source.file: /opt/vt-test/eicar.com
+virustotal.source.md5: 44d88612fea8a8f36de82e1278abb02f
+virustotal.source.sha1: 3395856ce81f2b7382dee72602f798b642f14140
+virustotal.sha1: 3395856ce81f2b7382dee72602f798b642f14140
+virustotal.scan_date: 2026-10-21 20:58:02
+virustotal.positives: 66
+virustotal.total: 68
+virustotal.permalink: https://www.virustotal.com/gui/file/275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f/detection/f-275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f-1792616282
+integration: virustotal
+
+** Alert 1792616517.3267075: - ossec,syscheck,syscheck_entry_modified,syscheck_file,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,hipaa_164.312.c.1,hipaa_164.312.c.2,nist_800_53_SI.7,tsc_PI1.4,tsc_PI1.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,
+2026 Oct 21 21:01:57 (agent-windows) any->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File 'c:\windows\system32\sleepstudy\sleepstudycontroltracesession.etl' modified
+Mode: realtime
+Changed attributes: size,mtime,md5,sha1,sha256
+Size changed from '6838' to '6967'
+Old modification time was: '1792616008', now it is '1792616516'
+Old md5sum was: 'c86e72637f1689681ee457a327a82440'
+New md5sum is : '4f211e993308e64c832bb10613340f4a'
+Old sha1sum was: '867eda18765fe124e9a58b9d8c46e3bd8acd7a3d'
+New sha1sum is : '8e1a277edf09c4ea5e4933a58ebf8280758a3e4e'
+Old sha256sum was: '9e8858bb515ab06a583ef2db798ea4ba324d1ed7416bf6eb5647536cd79f78e0'
+New sha256sum is : '87647adbf67f29b270a1d31bb328451770a4dbd9a2684fdb912db3035dcd867c'
